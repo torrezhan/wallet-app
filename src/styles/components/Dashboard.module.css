@@ -1,0 +1,150 @@
+.dashboard {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.balanceCard {
+  background-color: var(--background-white);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.balanceTitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.balanceAmount {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.balanceChange {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.balanceChange.positive {
+  color: var(--success-color);
+}
+
+.balanceChange.negative {
+  color: var(--error-color);
+}
+
+.transactionsList {
+  background-color: var(--background-white);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.transactionItem {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.transactionItem:last-child {
+  border-bottom: none;
+}
+
+.transactionIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.transactionDetails {
+  flex: 1;
+  min-width: 0;
+  margin-right: var(--spacing-md);
+}
+
+.transactionTitle {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transactionCategory {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transactionAmount {
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: 80px;
+  text-align: right;
+  margin-right: var(--spacing-md);
+}
+
+.transactionAmount.income {
+  color: var(--success-color);
+}
+
+.transactionAmount.expense {
+  color: var(--error-color);
+}
+
+.addButton {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease;
+}
+
+.addButton:hover {
+  transform: scale(1.1);
+}
+
+.dialog {
+  padding: var(--spacing-md);
+}
+
+.dialogTitle {
+  margin-bottom: var(--spacing-lg);
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+} 

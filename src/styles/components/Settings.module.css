@@ -1,0 +1,123 @@
+.settings {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.settingsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.settingsTitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.categoryList {
+  background-color: var(--background-white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.categoryItem:last-child {
+  border-bottom: none;
+}
+
+.categoryColor {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: var(--spacing-md);
+  border: 2px solid var(--border-color);
+}
+
+.categoryName {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.categoryActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.actionButton {
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: var(--background-light);
+  color: var(--text-primary);
+}
+
+.actionButton.delete:hover {
+  color: var(--error-color);
+}
+
+.dialog {
+  padding: var(--spacing-md);
+}
+
+.dialogTitle {
+  margin-bottom: var(--spacing-lg);
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.colorPicker {
+  margin-top: var(--spacing-xs);
+}
+
+.colorPickerButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.colorPickerButton:hover {
+  transform: scale(1.1);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.confirmDialog {
+  padding: var(--spacing-md);
+}
+
+.confirmMessage {
+  margin-bottom: var(--spacing-lg);
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+} 

@@ -1,0 +1,101 @@
+.statistics {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.chartCard {
+  background-color: var(--background-white);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.chartTitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.chartContainer {
+  height: 300px;
+  width: 100%;
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  min-width: 200px;
+}
+
+.summaryCard {
+  background-color: var(--background-white);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.summaryItem {
+  text-align: center;
+}
+
+.summaryLabel {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.summaryValue {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.summaryValue.income {
+  color: var(--success-color);
+}
+
+.summaryValue.expense {
+  color: var(--error-color);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legendLabel {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+} 
