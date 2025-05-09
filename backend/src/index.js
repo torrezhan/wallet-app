@@ -3,8 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const sequelize = require('./config/database');
-// Import models with associations
-require('./models/associations');
+require('./models');
 
 const app = express();
 
@@ -17,7 +16,6 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/categories', require('./routes/categories'));
 app.use('/api/transactions', require('./routes/transactions'));
 
-// Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
@@ -46,5 +44,4 @@ const initializeDatabase = async () => {
   }
 };
 
-// Initialize the application
-initializeDatabase(); 
+initializeDatabase();

@@ -4,14 +4,12 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Statistics from './pages/Statistics';
 import Settings from './pages/Settings';
 
-// Components
 import Layout from './components/Layout';
 
 const theme = createTheme({

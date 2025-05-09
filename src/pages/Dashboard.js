@@ -105,8 +105,8 @@ function Dashboard() {
     <div className={styles.dashboard}>
       <div className={styles.balanceCard}>
         <div className={styles.balanceTitle}>Current Balance</div>
-        <div className={`${styles.balanceAmount} ${balance >= 0 ? styles.positive : styles.negative}`}>
-          ${balance.toFixed(2)}
+        <div className={`${styles.balanceAmount} ${Number(balance || 0) >= 0 ? styles.positive : styles.negative}`}>
+          ${Number(balance || 0).toFixed(2)}
         </div>
       </div>
 

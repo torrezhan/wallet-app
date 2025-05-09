@@ -93,10 +93,30 @@ const transactionsSlice = createSlice({
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.loading = false;
-        state.transactions = action.payload;
-        state.balance = action.payload.reduce((acc, transaction) => {
-          return acc + (transaction.type === 'income' ? transaction.amount : -transaction.amount);
-        }, 0);
+        // Convert all amounts to numbers with 2 decimal places
+        state.transactions = action.payload.map(transaction => ({
+          ...transaction,
+          amount: parseFloat(parseFloat(transaction.amount).toFixed(2))
+        }));
+        
+        // Calculate total income
+        const totalIncome = state.transactions
+          .filter(t => t.type === 'income')
+          .reduce((sum, t) => {
+            const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+            return sum + amount;
+          }, 0);
+          
+        // Calculate total expenses
+        const totalExpenses = state.transactions
+          .filter(t => t.type === 'expense')
+          .reduce((sum, t) => {
+            const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+            return sum + amount;
+          }, 0);
+          
+        // Calculate final balance with 2 decimal places
+        state.balance = parseFloat((totalIncome - totalExpenses).toFixed(2));
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.loading = false;
@@ -109,10 +129,28 @@ const transactionsSlice = createSlice({
       })
       .addCase(addTransaction.fulfilled, (state, action) => {
         state.loading = false;
-        state.transactions.push(action.payload);
-        state.balance += action.payload.type === 'income' 
-          ? action.payload.amount 
-          : -action.payload.amount;
+        const newTransaction = {
+          ...action.payload,
+          amount: parseFloat(parseFloat(action.payload.amount).toFixed(2))
+        };
+        state.transactions.push(newTransaction);
+        
+        // Recalculate total balance
+        const totalIncome = state.transactions
+          .filter(t => t.type === 'income')
+          .reduce((sum, t) => {
+            const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+            return sum + amount;
+          }, 0);
+          
+        const totalExpenses = state.transactions
+          .filter(t => t.type === 'expense')
+          .reduce((sum, t) => {
+            const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+            return sum + amount;
+          }, 0);
+          
+        state.balance = parseFloat((totalIncome - totalExpenses).toFixed(2));
       })
       .addCase(addTransaction.rejected, (state, action) => {
         state.loading = false;
@@ -127,13 +165,28 @@ const transactionsSlice = createSlice({
         state.loading = false;
         const index = state.transactions.findIndex(t => t.id === action.payload.id);
         if (index !== -1) {
-          const oldAmount = state.transactions[index].amount;
-          const oldType = state.transactions[index].type;
-          state.transactions[index] = action.payload;
-          state.balance -= oldType === 'income' ? oldAmount : -oldAmount;
-          state.balance += action.payload.type === 'income' 
-            ? action.payload.amount 
-            : -action.payload.amount;
+          const updatedTransaction = {
+            ...action.payload,
+            amount: parseFloat(parseFloat(action.payload.amount).toFixed(2))
+          };
+          state.transactions[index] = updatedTransaction;
+          
+          // Recalculate total balance
+          const totalIncome = state.transactions
+            .filter(t => t.type === 'income')
+            .reduce((sum, t) => {
+              const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+              return sum + amount;
+            }, 0);
+            
+          const totalExpenses = state.transactions
+            .filter(t => t.type === 'expense')
+            .reduce((sum, t) => {
+              const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+              return sum + amount;
+            }, 0);
+            
+          state.balance = parseFloat((totalIncome - totalExpenses).toFixed(2));
         }
       })
       .addCase(updateTransaction.rejected, (state, action) => {
@@ -147,13 +200,24 @@ const transactionsSlice = createSlice({
       })
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.loading = false;
-        const transaction = state.transactions.find(t => t.id === action.payload);
-        if (transaction) {
-          state.balance -= transaction.type === 'income' 
-            ? transaction.amount 
-            : -transaction.amount;
-        }
         state.transactions = state.transactions.filter(t => t.id !== action.payload);
+        
+        // Recalculate total balance
+        const totalIncome = state.transactions
+          .filter(t => t.type === 'income')
+          .reduce((sum, t) => {
+            const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+            return sum + amount;
+          }, 0);
+          
+        const totalExpenses = state.transactions
+          .filter(t => t.type === 'expense')
+          .reduce((sum, t) => {
+            const amount = parseFloat(parseFloat(t.amount).toFixed(2));
+            return sum + amount;
+          }, 0);
+          
+        state.balance = parseFloat((totalIncome - totalExpenses).toFixed(2));
       })
       .addCase(deleteTransaction.rejected, (state, action) => {
         state.loading = false;
