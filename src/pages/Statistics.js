@@ -6,6 +6,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  TextField,
+  Box,
 } from '@mui/material';
 import {
   PieChart,
@@ -31,20 +33,56 @@ function Statistics() {
   const { transactions } = useSelector((state) => state.transactions);
   const { categories } = useSelector((state) => state.categories);
   const [dateRange, setDateRange] = useState('thisMonth');
+  const [customStartDate, setCustomStartDate] = useState('');
+  const [customEndDate, setCustomEndDate] = useState('');
 
   useEffect(() => {
     dispatch(fetchTransactions());
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  const getFilteredTransactions = () => {
+  const getDateRange = () => {
     const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    let startDate, endDate;
+
+    switch (dateRange) {
+      case 'thisMonth':
+        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        break;
+      case 'lastMonth':
+        startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+        break;
+      case 'thisYear':
+        startDate = new Date(now.getFullYear(), 0, 1);
+        endDate = new Date(now.getFullYear(), 11, 31);
+        break;
+      case 'custom':
+        if (!customStartDate || !customEndDate) {
+          return { startDate: null, endDate: null };
+        }
+        startDate = new Date(customStartDate);
+        endDate = new Date(customEndDate);
+        break;
+      default:
+        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    }
+
+    return { startDate, endDate };
+  };
+
+  const getFilteredTransactions = () => {
+    const { startDate, endDate } = getDateRange();
+    
+    if (!startDate || !endDate) {
+      return [];
+    }
 
     return transactions.filter((transaction) => {
       const transactionDate = new Date(transaction.date);
-      return transactionDate >= startOfMonth && transactionDate <= endOfMonth;
+      return transactionDate >= startDate && transactionDate <= endDate;
     });
   };
 
@@ -117,6 +155,25 @@ function Statistics() {
             <MenuItem value="custom">Custom Range</MenuItem>
           </Select>
         </FormControl>
+
+        {dateRange === 'custom' && (
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <TextField
+              type="date"
+              label="Start Date"
+              value={customStartDate}
+              onChange={(e) => setCustomStartDate(e.target.value)}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              type="date"
+              label="End Date"
+              value={customEndDate}
+              onChange={(e) => setCustomEndDate(e.target.value)}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Box>
+        )}
       </div>
 
       <div className={styles.summaryCard}>

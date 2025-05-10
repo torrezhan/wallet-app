@@ -40,21 +40,6 @@
   line-height: 1.2;
 }
 
-.balanceChange {
-  display: flex;
-  align-items: center;
-  font-size: 0.875rem;
-  gap: var(--spacing-xs);
-}
-
-.balanceChange.positive {
-  color: var(--success-color);
-}
-
-.balanceChange.negative {
-  color: var(--error-color);
-}
-
 .transactionsList {
   background-color: var(--background-white);
   border-radius: var(--border-radius-lg);
@@ -85,7 +70,7 @@
   flex: 1;
   min-width: 0;
   margin-right: var(--spacing-md);
-  padding-right: 120px; /* Space for amount */
+  padding-right: 120px;
 }
 
 .transactionTitle {
