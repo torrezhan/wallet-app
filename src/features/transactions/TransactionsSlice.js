@@ -20,7 +20,7 @@ export const fetchTransactions = createAsyncThunk(
       const response = await axios.get(`${API_URL}/transactions`, getAuthHeader());
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to fetch transactions');
     }
   }
 );
@@ -36,7 +36,7 @@ export const addTransaction = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to add transaction');
     }
   }
 );
@@ -52,7 +52,7 @@ export const updateTransaction = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to update transaction');
     }
   }
 );
@@ -64,7 +64,7 @@ export const deleteTransaction = createAsyncThunk(
       await axios.delete(`${API_URL}/transactions/${id}`, getAuthHeader());
       return id;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to delete transaction');
     }
   }
 );
@@ -120,7 +120,7 @@ const transactionsSlice = createSlice({
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to fetch transactions';
       })
       // Add transaction
       .addCase(addTransaction.pending, (state) => {
@@ -154,7 +154,7 @@ const transactionsSlice = createSlice({
       })
       .addCase(addTransaction.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to add transaction';
       })
       // Update transaction
       .addCase(updateTransaction.pending, (state) => {
@@ -191,7 +191,7 @@ const transactionsSlice = createSlice({
       })
       .addCase(updateTransaction.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to update transaction';
       })
       // Delete transaction
       .addCase(deleteTransaction.pending, (state) => {
@@ -221,7 +221,7 @@ const transactionsSlice = createSlice({
       })
       .addCase(deleteTransaction.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to delete transaction';
       });
   },
 });

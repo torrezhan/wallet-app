@@ -1,32 +1,50 @@
 .dashboard {
   display: grid;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: var(--spacing-md);
 }
 
 .balanceCard {
   background-color: var(--background-white);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.balanceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
 }
 
 .balanceTitle {
   color: var(--text-secondary);
   font-size: 0.875rem;
   margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .balanceAmount {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
 .balanceChange {
   display: flex;
   align-items: center;
   font-size: 0.875rem;
+  gap: var(--spacing-xs);
 }
 
 .balanceChange.positive {
@@ -39,9 +57,9 @@
 
 .transactionsList {
   background-color: var(--background-white);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-md);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .transactionItem {
@@ -51,25 +69,23 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-.transactionItem:last-child {
-  border-bottom: none;
-}
-
 .transactionIcon {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: var(--spacing-md);
   flex-shrink: 0;
+  font-weight: 600;
 }
 
 .transactionDetails {
   flex: 1;
   min-width: 0;
   margin-right: var(--spacing-md);
+  padding-right: 120px; /* Space for amount */
 }
 
 .transactionTitle {
@@ -78,6 +94,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text-primary);
 }
 
 .transactionCategory {
@@ -89,19 +106,13 @@
 }
 
 .transactionAmount {
-  font-weight: 500;
+  position: absolute;
+  right: 80px;
+  font-weight: 600;
   white-space: nowrap;
-  min-width: 80px;
+  min-width: 100px;
   text-align: right;
-  margin-right: var(--spacing-md);
-}
-
-.transactionAmount.income {
-  color: var(--success-color);
-}
-
-.transactionAmount.expense {
-  color: var(--error-color);
+  font-size: 1.1rem;
 }
 
 .addButton {
@@ -110,41 +121,76 @@
   right: var(--spacing-xl);
   width: 56px;
   height: 56px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
   background-color: var(--primary-color);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease;
-}
-
-.addButton:hover {
-  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-tooltip);
 }
 
 .dialog {
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
 }
 
 .dialogTitle {
   margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .formGroup {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .formLabel {
   display: block;
   margin-bottom: var(--spacing-xs);
   color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .formActions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+
+  .balanceCard {
+    padding: var(--spacing-lg);
+  }
+
+  .balanceAmount {
+    font-size: 2rem;
+  }
+
+  .transactionsList {
+    padding: var(--spacing-md);
+  }
+
+  .transactionDetails {
+    padding-right: 100px;
+  }
+  
+  .transactionAmount {
+    right: 70px;
+    min-width: 80px;
+    font-size: 1rem;
+  }
+
+  .addButton {
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+  }
 } 

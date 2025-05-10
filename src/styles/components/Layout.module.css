@@ -2,6 +2,7 @@
   background-color: var(--background-white) !important;
   color: var(--text-primary) !important;
   box-shadow: var(--shadow-sm) !important;
+  z-index: var(--z-index-drawer) !important;
 }
 
 .drawer {
@@ -21,11 +22,13 @@
   padding: var(--spacing-md);
   justify-content: flex-end;
   min-height: 64px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-light);
 }
 
 .content {
   flex-grow: 1;
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   margin-top: 64px;
   min-height: calc(100vh - 64px);
   background-color: var(--background-light);
@@ -37,16 +40,14 @@
   padding: var(--spacing-md);
   color: var(--text-primary);
   text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.navItem:hover {
-  background-color: var(--background-light);
+  border-radius: var(--border-radius-sm);
+  margin: var(--spacing-xs) var(--spacing-sm);
 }
 
 .navItem.active {
-  background-color: var(--background-light);
-  color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: var(--shadow-sm);
 }
 
 .navIcon {
@@ -54,16 +55,52 @@
 }
 
 .userInfo {
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-light);
 }
 
 .userName {
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+  font-size: 1.1rem;
 }
 
 .userEmail {
   color: var(--text-secondary);
   font-size: 0.875rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .content {
+    padding: var(--spacing-md);
+  }
+
+  .drawerPaper {
+    width: 100%;
+  }
+
+  .navItem {
+    margin: var(--spacing-xs) var(--spacing-xs);
+  }
+
+  .userInfo {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Animation for drawer */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawerPaper {
+  animation: slideIn var(--transition-normal);
 } 

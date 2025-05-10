@@ -19,7 +19,7 @@ export const fetchCategories = createAsyncThunk(
       const response = await axios.get(`${API_URL}/categories`, getAuthHeader());
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to fetch categories');
     }
   }
 );
@@ -35,7 +35,7 @@ export const addCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to add category');
     }
   }
 );
@@ -51,7 +51,7 @@ export const updateCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to update category');
     }
   }
 );
@@ -63,7 +63,7 @@ export const deleteCategory = createAsyncThunk(
       await axios.delete(`${API_URL}/categories/${id}`, getAuthHeader());
       return id;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data?.error || 'Failed to delete category');
     }
   }
 );
@@ -95,7 +95,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(fetchCategories.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to fetch categories';
       })
       // Add category
       .addCase(addCategory.pending, (state) => {
@@ -108,7 +108,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(addCategory.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to add category';
       })
       // Update category
       .addCase(updateCategory.pending, (state) => {
@@ -124,7 +124,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(updateCategory.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to update category';
       })
       // Delete category
       .addCase(deleteCategory.pending, (state) => {
@@ -137,7 +137,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || 'Failed to delete category';
       });
   },
 });

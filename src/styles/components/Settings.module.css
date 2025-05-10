@@ -54,15 +54,9 @@
   padding: var(--spacing-xs);
   border-radius: var(--border-radius-sm);
   color: var(--text-secondary);
-  transition: all 0.2s ease;
 }
 
-.actionButton:hover {
-  background-color: var(--background-light);
-  color: var(--text-primary);
-}
-
-.actionButton.delete:hover {
+.actionButton.delete {
   color: var(--error-color);
 }
 
@@ -94,11 +88,6 @@
   border-radius: 50%;
   border: 2px solid var(--border-color);
   cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.colorPickerButton:hover {
-  transform: scale(1.1);
 }
 
 .formActions {

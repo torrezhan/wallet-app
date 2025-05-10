@@ -101,6 +101,11 @@ function Dashboard() {
     return category ? category.name : 'Unknown';
   };
 
+  const getCategoryColor = (categoryId) => {
+    const category = categories.find(c => c.id === categoryId);
+    return category ? category.color : '#000000';
+  };
+
   return (
     <div className={styles.dashboard}>
       <div className={styles.balanceCard}>
@@ -129,7 +134,13 @@ function Dashboard() {
               key={transaction.id}
               className={styles.transactionItem}
             >
-              <div className={styles.transactionIcon}>
+              <div 
+                className={styles.transactionIcon}
+                style={{ 
+                  backgroundColor: getCategoryColor(transaction.categoryId),
+                  color: '#ffffff'
+                }}
+              >
                 {transaction.type === 'income' ? '+' : '-'}
               </div>
               <div className={styles.transactionDetails}>
